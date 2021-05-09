@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControlMedico.Api.Migrations
 {
     [DbContext(typeof(ContextoBaseDatos))]
-    [Migration("20210507055951_Paciente")]
-    partial class Paciente
+    [Migration("20210509001925_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,32 @@ namespace ControlMedico.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ControlMedico.Api.Modelos.Cita", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Cancelada")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("FechaCita")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("IdPaciente")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TipoCita")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPaciente");
+
+                    b.ToTable("Cita");
+                });
 
             modelBuilder.Entity("ControlMedico.Api.Modelos.Paciente", b =>
                 {
@@ -60,6 +86,22 @@ namespace ControlMedico.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Paciente");
+                });
+
+            modelBuilder.Entity("ControlMedico.Api.Modelos.Cita", b =>
+                {
+                    b.HasOne("ControlMedico.Api.Modelos.Paciente", "InfoPaciente")
+                        .WithMany("Cita")
+                        .HasForeignKey("IdPaciente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InfoPaciente");
+                });
+
+            modelBuilder.Entity("ControlMedico.Api.Modelos.Paciente", b =>
+                {
+                    b.Navigation("Cita");
                 });
 #pragma warning restore 612, 618
         }

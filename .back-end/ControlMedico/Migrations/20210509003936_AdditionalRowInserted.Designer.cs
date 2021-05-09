@@ -4,14 +4,16 @@ using ControlMedico.Api.Data.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ControlMedico.Api.Migrations
 {
     [DbContext(typeof(ContextoBaseDatos))]
-    partial class ContextoBaseDatosModelSnapshot : ModelSnapshot
+    [Migration("20210509003936_AdditionalRowInserted")]
+    partial class AdditionalRowInserted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,16 +45,6 @@ namespace ControlMedico.Api.Migrations
                     b.HasIndex("IdPaciente");
 
                     b.ToTable("Cita");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Cancelada = false,
-                            FechaCita = new DateTime(2021, 5, 8, 20, 41, 19, 622, DateTimeKind.Local).AddTicks(6742),
-                            IdPaciente = 1,
-                            TipoCita = (byte)1
-                        });
                 });
 
             modelBuilder.Entity("ControlMedico.Api.Modelos.Paciente", b =>
@@ -99,7 +91,7 @@ namespace ControlMedico.Api.Migrations
                         new
                         {
                             Id = 1,
-                            FechaNacimiento = new DateTime(2021, 5, 8, 20, 41, 19, 616, DateTimeKind.Local).AddTicks(7221),
+                            FechaNacimiento = new DateTime(2021, 5, 8, 18, 39, 35, 161, DateTimeKind.Local).AddTicks(448),
                             Genero = (byte)2,
                             Identificacion = "114270541",
                             NombreCompleto = "José Rodríguez",
@@ -110,7 +102,7 @@ namespace ControlMedico.Api.Migrations
                         new
                         {
                             Id = 2,
-                            FechaNacimiento = new DateTime(2021, 5, 8, 20, 41, 19, 619, DateTimeKind.Local).AddTicks(7109),
+                            FechaNacimiento = new DateTime(2021, 5, 8, 18, 39, 35, 162, DateTimeKind.Local).AddTicks(9062),
                             Genero = (byte)1,
                             Identificacion = "501470061",
                             NombreCompleto = "Eida Arroyo",
@@ -121,7 +113,7 @@ namespace ControlMedico.Api.Migrations
                         new
                         {
                             Id = 3,
-                            FechaNacimiento = new DateTime(2021, 5, 8, 20, 41, 19, 619, DateTimeKind.Local).AddTicks(7164),
+                            FechaNacimiento = new DateTime(2021, 5, 8, 18, 39, 35, 162, DateTimeKind.Local).AddTicks(9093),
                             Genero = (byte)2,
                             Identificacion = "601660017",
                             NombreCompleto = "Greddy Rodríguez",
@@ -133,13 +125,13 @@ namespace ControlMedico.Api.Migrations
 
             modelBuilder.Entity("ControlMedico.Api.Modelos.Cita", b =>
                 {
-                    b.HasOne("ControlMedico.Api.Modelos.Paciente", "Paciente")
+                    b.HasOne("ControlMedico.Api.Modelos.Paciente", "InfoPaciente")
                         .WithMany("Cita")
                         .HasForeignKey("IdPaciente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Paciente");
+                    b.Navigation("InfoPaciente");
                 });
 
             modelBuilder.Entity("ControlMedico.Api.Modelos.Paciente", b =>

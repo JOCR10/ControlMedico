@@ -25,10 +25,40 @@ namespace ControlMedico.Api.Migrations
                 {
                     table.PrimaryKey("PK_Paciente", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Cita",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaCita = table.Column<DateTime>(type: "datetime", nullable: true),
+                    IdPaciente = table.Column<int>(type: "int", nullable: false),
+                    TipoCita = table.Column<int>(type: "int", nullable: true),
+                    Cancelada = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cita", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cita_Paciente_IdPaciente",
+                        column: x => x.IdPaciente,
+                        principalTable: "Paciente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cita_IdPaciente",
+                table: "Cita",
+                column: "IdPaciente");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Cita");
+
             migrationBuilder.DropTable(
                 name: "Paciente");
         }

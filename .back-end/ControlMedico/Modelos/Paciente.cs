@@ -3,8 +3,7 @@ using ControlMedico.Api.Enumerados;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControlMedico.Api.Modelos
 {
@@ -37,7 +36,10 @@ namespace ControlMedico.Api.Modelos
         public string DesTipoIdentificacion { get { return ExtensionEnum.ObtenerDescripcionEnum((EnumTipoIdentificacion)TipoIdentificacion); } }
 
         public string DesGenero { get { return ExtensionEnum.ObtenerDescripcionEnum((EnumGenero)Genero); } }
+        
+        public virtual ICollection<Cita> Cita { get; set; }
 
+        [Key]
         public int Id { get; set; }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using ControlMedico.Api.Modelos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControlMedico.Api.Data.EFCore
 {
@@ -12,6 +8,5 @@ namespace ControlMedico.Api.Data.EFCore
         {
 
         }
-        // We can add new methods specific to the movie repository here in the future
     }
 }

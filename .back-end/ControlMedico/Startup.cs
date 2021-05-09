@@ -31,9 +31,13 @@ namespace ControlMedico
             services.AddControllers();
 
             services.AddDbContext<ContextoBaseDatos>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ControlMedicoApiContext")));
+                    options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ControlMedicoApiContext")));
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddScoped<RepositorioPaciente>();
+            services.AddScoped<RepositorioCita>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

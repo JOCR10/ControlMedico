@@ -9,8 +9,8 @@ namespace ControlMedico.Api.Data
     {
         Task<List<Modelo>> Consultar();
         Task<Modelo> Obtener(int id);
-        Task<Modelo> Agregar(Modelo entity);
-        Task<Modelo> Actualizar(Modelo entity);
+        Task<Modelo> Agregar(Modelo entidad);
+        Task<Modelo> Actualizar(Modelo entidad);
         Task<Modelo> Eliminar(int id);
     }
 }

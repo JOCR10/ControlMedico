@@ -1,19 +1,25 @@
-﻿using ControlMedico.Api.Enumerados;
+﻿using ControlMedico.Api.Data;
+using ControlMedico.Api.Enumerados;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControlMedico.Api.Modelos
 {
-    public class Cita
+    public class Cita : IEntidad
     {
-        public int IdCita { get; set; }
+        [Column(TypeName = "datetime")]
         public DateTime? FechaCita { get; set; }
-        public int IdPaciente { get; set; }
         public EnumTipoCita? TipoCita { get; set; }
         public string DesTipoCita { get { return ExtensionEnum.ObtenerDescripcionEnum((EnumTipoCita)TipoCita); } }
         public bool? Cancelada { get; set; }
-        public virtual Paciente InfoPaciente { get; set; }
+
+        public int IdPaciente { get; set; }
+
+        [ForeignKey("IdPaciente")]
+        public virtual Paciente Paciente { get; set; }
+
+        [Key]
+        public int Id { get; set; }
     }
 }
